@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+nobuild/
+share/
+wheel/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+
+# Project specific
+test_videos/
+data/
+verify.py
