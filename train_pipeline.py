@@ -13,12 +13,12 @@ from torch.utils.data import DataLoader
 import os
 import argparse
 
-from pcdl.io import PSCDLDataset
+from pcdl.io import PSCDLDataset, ImageDataset
 from pcdl.spatial import UNetModel, dice_loss
 
 def main():
     parser = argparse.ArgumentParser(description="Integrated PSCDL Training Pipeline")
-    parser.add_argument("--data", type=str, default="data/dataset", help="Path to real dataset")
+    parser.add_argument("--data", type=str, default="data/dataset/train", help="Path to real dataset")
     parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     parser.add_argument("--batch-size", type=int, default=4, help="Batch size")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
@@ -27,14 +27,22 @@ def main():
     
     args = parser.parse_args()
 
-    # 1. Initialize Integrated Dataset (Athul's Preprocessor + Metadata)
+    # 1. Initialize Dataset (Auto-detect if it's raw videos or pre-extracted images)
     print(f"Indexing dataset at {args.data}...")
-    dataset = PSCDLDataset(
-        root_dir=args.data,
-        output_size=(256, 256),
-        fps=args.fps
-    )
     
+    if os.path.isdir(os.path.join(args.data, "images")):
+        print("Detected pre-extracted images. Using ImageDataset...")
+        dataset = ImageDataset(root_dir=args.data, output_size=(256, 256))
+        pos_samples = "N/A (Image Mode)"
+    else:
+        print("Detected raw videos. Using PSCDLDataset (Video-based)...")
+        dataset = PSCDLDataset(
+            root_dir=args.data,
+            output_size=(256, 256),
+            fps=args.fps
+        )
+        pos_samples = sum(1 for s in dataset.samples if 'mask1.png' not in s['mask_path'])
+
     if len(dataset) == 0:
         print("Error: No training samples found. Check your data paths and .txt files.")
         return
@@ -43,8 +51,8 @@ def main():
     
     # Check for balance
     print(f"Total training samples: {len(dataset)}")
-    pos_samples = sum(1 for s in dataset.samples if 'mask1.png' not in s['mask_path']) 
-    print(f"Samples with potential objects: {pos_samples} ({pos_samples/len(dataset)*100:.1f}%)")
+    if isinstance(pos_samples, int):
+        print(f"Samples with potential objects: {pos_samples} ({pos_samples/len(dataset)*100:.1f}%)")
 
     # 2. Initialize Model (Lekshmi's Model)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

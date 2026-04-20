@@ -6,6 +6,6 @@ Supports NumPy, PyTorch, and TensorFlow backends.
 """
 
 from pcdl.io.video_preprocessor import VideoPreprocessor
-from pcdl.io.dataset import PSCDLDataset
+from pcdl.io.dataset import PSCDLDataset, ImageDataset
 
-__all__ = ["VideoPreprocessor", "PSCDLDataset"]
+__all__ = ["VideoPreprocessor", "PSCDLDataset", "ImageDataset"]

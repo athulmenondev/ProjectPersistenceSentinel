@@ -106,6 +106,47 @@ class PSCDLDataset(Dataset):
                 
         return intervals
 
+class ImageDataset(Dataset):
+    """
+    High-speed dataset for pre-extracted frames (images + masks).
+    """
+    def __init__(self, root_dir: str, output_size: Tuple[int, int] = (256, 256)):
+        self.root_dir = root_dir
+        self.output_size = output_size
+        
+        self.img_dir = os.path.join(root_dir, "images")
+        self.mask_dir = os.path.join(root_dir, "masks")
+        
+        # List all images
+        self.img_names = sorted([f for f in os.listdir(self.img_dir) if f.endswith(('.jpg', '.png'))])
+        
+    def __len__(self):
+        return len(self.img_names)
+        
+    def __getitem__(self, idx):
+        img_name = self.img_names[idx]
+        # Match mask name (usually same name or .png)
+        mask_name = img_name.replace(".jpg", ".png")
+        
+        img_path = os.path.join(self.img_dir, img_name)
+        mask_path = os.path.join(self.mask_dir, mask_name)
+        
+        # Load
+        img_raw = cv2.imread(img_path)
+        img_rgb = cv2.cvtColor(img_raw, cv2.COLOR_BGR2RGB)
+        img_resized = cv2.resize(img_rgb, self.output_size)
+        img_proc = img_resized.astype(np.float32) / 255.0
+        
+        mask_raw = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
+        mask_resized = cv2.resize(mask_raw, self.output_size, interpolation=cv2.INTER_NEAREST)
+        mask_proc = (mask_resized > 127).astype(np.float32)
+        
+        # Convert to Tensors
+        frame_tensor = torch.from_numpy(img_proc).permute(2, 0, 1).float()
+        mask_tensor = torch.from_numpy(mask_proc).unsqueeze(0).float()
+        
+        return frame_tensor, mask_tensor
+
     def __len__(self):
         return len(self.samples)
 
