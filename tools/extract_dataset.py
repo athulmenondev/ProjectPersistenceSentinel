@@ -8,18 +8,29 @@ import os
 import cv2
 import numpy as np
 from tqdm import tqdm
+import argparse
 from pcdl.io import PSCDLDataset
 
 def main():
-    source_data = "data/dataset/train"
-    output_root = "data/temp/preprocessed_train"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data", type=str, default="data/dataset/train", help="Path to raw videos")
+    parser.add_argument("--output", type=str, default="data/temp/preprocessed_train", help="Path to output images")
+    args = parser.parse_args()
+
+    source_data = args.data
+    output_root = args.output
     
     os.makedirs(os.path.join(output_root, "images"), exist_ok=True)
     os.makedirs(os.path.join(output_root, "masks"), exist_ok=True)
     
     # Initialize the integrated dataset to get the metadata
+    print(f"Opening dataset at {source_data}...")
     dataset = PSCDLDataset(root_dir=source_data, fps=2)
     
+    if len(dataset) == 0:
+        print(f"Warning: No valid data found in {source_data}. Check your paths!")
+        return
+
     print(f"Extracting {len(dataset)} frames to {output_root}...")
     
     # Track the last video to avoid reopening
