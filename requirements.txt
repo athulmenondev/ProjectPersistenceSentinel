@@ -1,0 +1,22 @@
+# PSCDL 2026 - Persistence Scene Change Detection
+# Unified Requirements for All Modules
+
+# Core Dependencies
+numpy>=1.24.0
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+
+# Deep Learning (choose one or both)
+torch>=2.0.0
+torchvision>=0.15.0
+tensorflow>=2.12.0  # Optional, comment out if not needed
+
+# Data Processing
+Pillow>=10.0.0
+matplotlib>=3.7.0
+
+# Optional: CRF for edge refinement (improves mask quality)
+# pydensecrf>=2.2.0  # Uncomment if available (may require compilation)
+
+# Utilities
+tqdm>=4.65.0

@@ -1,0 +1,15 @@
+Video Duration: 130 seconds  
+Persistence Threshold (P): 60 seconds  
+Cooldown Period (C): 90 seconds  
+
+Ground Truth Masks:  
+mask1.png: 0s – 82s  
+mask2.png: 83s – 112s  
+mask3.png: 113s – 120s  
+
+Explanation:  
+1. mask1.png: Black mask from 0 to 82 seconds, as no persistent change is observed during this period.  
+
+2. mask2.png: Mask around the trolley bag, as it has remained in the scene long enough to satisfy the persistence threshold.  
+
+3. mask3.png: Black mask from 113 to 120 seconds, since no further changes occur and the trolley bag has crossed the cooldown period, becoming part of the background.

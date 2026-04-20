@@ -1,0 +1,23 @@
+Video Duration: 338 seconds
+Persistence Threshold (P): 60 seconds
+Cooldown Period (C): 90 seconds
+
+Scene Description:
+
+1. A vehicle(thela) appears near the footpath at the 76-second mark.
+2. It remains stationary until the end of the video.
+
+Ground Truth Masks:
+
+mask1.png: 0s to 135s
+mask2.png: 136s to 165s
+mask3.png: 166s to 338s
+
+Explanation:
+
+1. mask1 corresponds to the interval from 0 to 135 seconds, during which no persistent encroachment is detected.
+
+2. mask2 highlights the vehicle from 136 to 165 seconds, as it has remained in the scene long enough to exceed the persistence threshold.
+
+3. mask3 is a blank mask for the interval 166 to 338 seconds, since no further persistent changes are observed and the vehicle (thela) is now treated as part of the background after surpassing the cooldown period.
+

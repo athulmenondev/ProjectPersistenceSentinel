@@ -1,0 +1,23 @@
+Video Duration: 368 seconds
+Persistence Threshold (P): 60 seconds
+Cooldown Period (C): 90 seconds
+
+Scenario Description:
+
+1. A motorcycle enters the scene at the 200-second timestamp.
+2. It remains present until the end of the video.
+
+Ground Truth:
+
+mask1.png: Interval → 0s to 259s
+mask2.png: Interval → 260s to 289s
+mask3.png: Interval → 290s to 368s
+
+Explanation:
+
+1. From 0 to 259 seconds, no encroachment is detected; therefore, mask1 is a blank (black) mask.
+
+2. Between 260 and 289 seconds, mask2 highlights the motorcycle, as it has remained in the scene long enough to exceed the 60-second persistence threshold.
+
+3. From 290 to 368 seconds, a blank mask mask3 is generated since the motorcycle has surpassed the cooldown period and is now considered part of the background.
+

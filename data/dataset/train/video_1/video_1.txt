@@ -1,0 +1,28 @@
+Video Duration: 240 seconds
+Persistence Threshold (P): 60 seconds
+Cooldown Period (C): 90 seconds
+
+Scene Description:
+
+1. Trolley bag-1 is introduced at 28 seconds and remains in the scene for the entire duration of the video.
+2. Trolley bag-2 is introduced at 148 seconds and also remains until the end of the video.
+
+Ground Truth Masks:
+mask1.png: 0s – 87s
+mask2.png: 88s – 117s
+mask3.png: 118s – 207s
+mask4.png: 208s – 237s
+mask5.png: 238s – 240s
+
+Explanation:
+
+1. mask1.png: Black mask from 0 to 87 seconds, as no object satisfies the persistence threshold during this interval.
+
+2. mask2.png: Mask around trolley bag-1, as it has remained in the scene long enough to meet the persistence threshold.
+
+3. mask3.png: Black mask from 118 to 207 seconds, since there is no new persistent change and trolley bag-1 has crossed the cooldown period, becoming part of the background.
+
+4. mask4.png: Mask around trolley bag-2, as it becomes persistent during this interval.
+
+5. mask5.png: Black mask from 238 to 240 seconds, as no new persistent change occurs and both trolley bag-1 and trolley bag-2 have transitioned into the background after completing the cooldown period.
+

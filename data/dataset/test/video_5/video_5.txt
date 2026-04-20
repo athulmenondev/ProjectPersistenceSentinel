@@ -1,0 +1,43 @@
+Video Duration: 417 seconds
+Persistence Threshold (P): 60 seconds
+Cooldown Period (C): 90 seconds
+
+Scene Description:
+
+1. A box is introduced at 93 seconds.
+2. A keyboard and a pan are added at 116 seconds.
+3. A telephone appears at 184 seconds.
+4. A towel/cloth is added at 200 seconds.
+5. A thela (cart) enters at 373 seconds.
+
+Ground Truth Masks:
+mask1.png: 0s – 152s
+mask2.png: 153s – 175s
+mask3.png: 176s – 182s
+mask4.png: 183s – 205s
+mask5.png: 206s – 243s
+mask6.png: 244s – 259s
+mask7.png: 260s - 273s
+mask8.png: 274s – 289s
+mask9.png: 290s – 417s
+
+Explanation:
+
+1. mask1.png: Blank mask from 0 to 153 seconds, as no object meets the persistence threshold during this period.
+
+2. mask2.png: Mask around the box, as it has remained in the scene long enough to exceed the persistence threshold.
+
+3. mask3.png: Mask around the box, keyboard, and pan, since all of them are persistent during this interval.
+
+4. mask4.png: Mask around the keyboard and pan. The box has completed its cooldown period and is now treated as part of the background.
+
+5. mask5.png: Blank mask, as the box, keyboard, and pan have become part of the background and no new object has yet met the persistence condition.
+
+6. mask6.png: Mask around the telephone, as it becomes persistent in this duration.
+
+7. mask7.png: Mask around the telephone and towel/cloth.
+
+7. mask8.png: Mask around the towel/cloth, since it remains in the scene long enough to satisfy the persistence threshold and telephone has become inactive as it has passed its cooldown period.
+
+8. mask9.png: Blank mask from 290 to 417 seconds, as all previously added objects have transitioned into the background after the cooldown period, and the thela has not yet reached the persistence threshold.
+

@@ -1,3 +1,41 @@
+# Python
 __pycache__/
 *.pyc
-model.pth
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+output_masks/
+output/
+test_videos/
+*.log
+*.pth
+
+# ML artifacts
+wandb/
+runs/
+
+# Data (keep sample, ignore large files)
+*.mp4
+!test_sample.*
+data/raw/
+data/processed/
+
+# OS
+.DS_Store
+Thumbs.db
